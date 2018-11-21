@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<updates>
+	<update>
+		<name>UserSimplify 3.0.1</name>
+		<description>UserSimplify Plugin</description>
+		<element>simplify</element>
+		<type>plugin</type>
+		<folder>user</folder>
+		<client>site</client>
+		<version>3.0.1</version>
+		<infourl title="HttpHeader Plugin">https://github.com/Babioon/babioon-usersimplify</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/Babioon/babioon-usersimplify/releases/download/3.0.1/plg_user_simplify.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Robert Deutz</maintainer>
+		<maintainerurl>https://babioon.com/de/</maintainerurl>
+		<php_minimum>7.0.0</php_minimum>
+		<targetplatform name="joomla" version="3.9"/>
+	</update>
+</updates>
