@@ -2,12 +2,12 @@
 <extension version="3.6" type="plugin" group="user" method="upgrade">
 	<name>plg_user_simplify</name>
 	<author>Joomla! Project</author>
-	<creationDate>May 2016</creationDate>
-	<copyright>(C) 2005 - 2016 Open Source Matters. All rights reserved.</copyright>
+	<creationDate>November 2018</creationDate>
+	<copyright>(C) 2005 - 2018 Open Source Matters. All rights reserved.</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>admin@joomla.org</authorEmail>
 	<authorUrl>www.joomla.org</authorUrl>
-	<version>3.0.0</version>
+	<version>3.0.1</version>
 	<description>PLG_USER_SIMPLIFY_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="simplify">simplify.php</filename>
@@ -19,12 +19,35 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="remove_name_field"
-					   type="radio"
-					   class="btn-group btn-group-yesno"
-					   default="1"
-					   description="PLG_USER_SIMPLIFY_FIELD_REMOVENAME_DESC"
-					   label="PLG_USER_SIMPLIFY_FIELD_REMOVENAME_LABEL"
+				<field
+					name="remove_name_field"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="1"
+					description="PLG_USER_SIMPLIFY_FIELD_REMOVENAME_DESC"
+					label="PLG_USER_SIMPLIFY_FIELD_REMOVENAME_LABEL"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="remove_confirm_fields"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="0"
+					description="PLG_USER_SIMPLIFY_FIELD_REMOVE_CONFIRM_FIELDS_DESC"
+					label="PLG_USER_SIMPLIFY_FIELD_REMOVE_CONFIRM_FIELDS_LABEL"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="use_hints_frontend"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="0"
+					description="PLG_USER_SIMPLIFY_FIELD_USE_HINTS_FRONTEND_DESC"
+					label="PLG_USER_SIMPLIFY_FIELD_USE_HINTS_FRONTEND_LABEL"
 				>
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
