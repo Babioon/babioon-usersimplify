@@ -1,9 +1,9 @@
 <?php
 /**
  * @package     Joomla.Plugin
- * @subpackage  User.joomla
+ * @subpackage  user.babioonusersimplify
  *
- * @copyright   Copyright (C) 2005 - 2016 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -14,7 +14,7 @@ use Joomla\Registry\Registry;
 /**
  * Simplify User plugin
  *
- * @since  3.6
+ * @since  3.0.0
  */
 class PlgUserSimplify extends JPlugin
 {
@@ -40,7 +40,7 @@ class PlgUserSimplify extends JPlugin
 	 *
 	 * @return  boolean
 	 *
-	 * @since   3.6
+	 * @since   3.0.0
 	 */
 	public function onContentPrepareForm($form, $data)
 	{
@@ -84,7 +84,7 @@ class PlgUserSimplify extends JPlugin
 
 			$newOrder = array_merge(array('id'), $newOrder);
 
-			$this->reorderFormFields($form, $fields, $newOrder);
+			$this->reorderFormFields($form, $fields, $newOrder, 'core');
 
 			$form->setFieldAttribute('email1', 'label', 'PLG_USER_SIMPLIFY_EMAIL1');
 			$form->setFieldAttribute('email2', 'label', 'PLG_USER_SIMPLIFY_EMAIL2');
@@ -103,7 +103,7 @@ class PlgUserSimplify extends JPlugin
 
 			$newOrder = array_merge(array('spacer'), $newOrder);
 
-			$this->reorderFormFields($form, $fields, $newOrder);
+			$this->reorderFormFields($form, $fields, $newOrder. 'default');
 
 			$form->setFieldAttribute('email1', 'label', 'PLG_USER_SIMPLIFY_EMAIL1');
 			$form->setFieldAttribute('email2', 'label', 'PLG_USER_SIMPLIFY_EMAIL2');
@@ -124,7 +124,7 @@ class PlgUserSimplify extends JPlugin
 				$newOrder = array_merge(array('name'), $newOrder);
 			}
 
-			$this->reorderFormFields($form, $fields, $newOrder);
+			$this->reorderFormFields($form, $fields, $newOrder, 'user_details');
 
 			$form->setFieldAttribute('email', 'label', 'PLG_USER_SIMPLIFY_EMAIL');
 		}
@@ -145,7 +145,7 @@ class PlgUserSimplify extends JPlugin
 	 *
 	 * @return  boolean
 	 *
-	 * @since   3.6
+	 * @since   3.0.0
 	 */
 	public function onUserBeforeDataValidation($form, &$data)
 	{
@@ -172,15 +172,16 @@ class PlgUserSimplify extends JPlugin
 	/**
 	 * Reorder fields of the form
 	 *
-	 * @param   JForm  $form      The form to be altered.
-	 * @param   array  $fields    The fields of the form
-	 * @param   array  $newOrder  The new ordering for the fields
+	 * @param   JForm   $form      The form to be altered.
+	 * @param   array   $fields    The fields of the form
+	 * @param   array   $newOrder  The new ordering for the fields
+	 * @param   string  $fieldset  The fieldset the new fields should be added to
 	 *
 	 * @return void
 	 *
-	 * @since   3.6
+	 * @since   3.0.0
 	 */
-	private function reorderFormFields($form, $fields, $newOrder)
+	private function reorderFormFields($form, $fields, $newOrder, $fieldset)
 	{
 		$formFields = array();
 
@@ -193,7 +194,7 @@ class PlgUserSimplify extends JPlugin
 
 		foreach ($newOrder AS $field)
 		{
-			$form->setField($formFields[$field], null, false, 'fieldset');
+			$form->setField($formFields[$field], null, false, $fieldset);
 		}
 	}
 }
