@@ -88,6 +88,19 @@ class PlgUserSimplify extends JPlugin
 
 			$form->setFieldAttribute('email1', 'label', 'PLG_USER_SIMPLIFY_EMAIL1');
 			$form->setFieldAttribute('email2', 'label', 'PLG_USER_SIMPLIFY_EMAIL2');
+
+			// Copy the label to the hints when enabled
+			if ($this->params->get('use_hints_frontend', 0) == 1)
+			{
+				$this->setHintsFieldAttribute($form, $newOrder);
+			}
+
+			// Remove the confirm fields when we get configured that way
+			if ($this->params->get('remove_confirm_fields', 0) == 1)
+			{
+				$form->removeField('email2');
+				$form->removeField('password2');
+			}
 		}
 
 		if ($name == 'com_users.registration')
@@ -107,6 +120,19 @@ class PlgUserSimplify extends JPlugin
 
 			$form->setFieldAttribute('email1', 'label', 'PLG_USER_SIMPLIFY_EMAIL1');
 			$form->setFieldAttribute('email2', 'label', 'PLG_USER_SIMPLIFY_EMAIL2');
+
+			// Copy the label to the hints when enabled
+			if ($this->params->get('use_hints_frontend', 0) == 1)
+			{
+				$this->setHintsFieldAttribute($form, $newOrder);
+			}
+
+			// Remove the confirm fields when we get configured that way
+			if ($this->params->get('remove_confirm_fields', 0) == 1)
+			{
+				$form->removeField('email2');
+				$form->removeField('password2');
+			}
 		}
 
 		if ($name == 'com_users.user')
@@ -127,11 +153,30 @@ class PlgUserSimplify extends JPlugin
 			$this->reorderFormFields($form, $fields, $newOrder);
 
 			$form->setFieldAttribute('email', 'label', 'PLG_USER_SIMPLIFY_EMAIL');
+
+			// Copy the label to the hints when enabled
+			if ($this->params->get('use_hints_frontend', 0) == 1)
+			{
+				$this->setHintsFieldAttribute($form, $newOrder);
+			}
+
+			// Remove the confirm fields when we get configured that way
+			if ($this->params->get('remove_confirm_fields', 0) == 1)
+			{
+				$form->removeField('email2');
+				$form->removeField('password2');
+			}
 		}
 
 		if ($name == 'com_users.login')
 		{
 			$form->setFieldAttribute('username', 'label', 'PLG_USER_SIMPLIFY_USERNAME');
+
+			// Copy the label to the hints when enabled
+			if ($this->params->get('use_hints_frontend', 0) == 1)
+			{
+				$this->setHintsFieldAttribute($form, array('username', 'password'));
+			}
 		}
 
 		return true;
@@ -166,6 +211,20 @@ class PlgUserSimplify extends JPlugin
 
 		$data['username'] = $value;
 
+		// Make sure the fields are filled even when removed from the form
+		if ($this->params->get('remove_confirm_fields', 0) == 1)
+		{
+			if (array_key_exists('email1', $data))
+			{
+				$data['email2'] = $data['email1'];
+			}
+
+			if (array_key_exists('password1', $data))
+			{
+				$data['password2'] = $data['password1'];
+			}
+		}
+
 		return true;
 	}
 
@@ -194,6 +253,33 @@ class PlgUserSimplify extends JPlugin
 		foreach ($newOrder AS $field)
 		{
 			$form->setField($formFields[$field], null, false, 'fieldset');
+		}
+	}
+
+	/**
+	 * Reorder fields of the form
+	 *
+	 * @param   JForm   $form      The form to be altered.
+	 * @param   array   $fields    The fields of the form
+	 * @param   array   $newOrder  The new ordering for the fields
+	 * @param   string  $fieldset  The fieldset the new fields should be added to
+	 *
+	 * @return void
+	 *
+	 * @since   3.0.1
+	 */
+	private function setHintsFieldAttribute($form, $fields)
+	{
+		foreach ($fields AS $field)
+		{
+			$form->setFieldAttribute(
+				$field,
+				'hint',
+				$form->getFieldAttribute(
+					$field,
+					'label'
+				)
+			);
 		}
 	}
 }
